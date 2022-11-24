@@ -1,4 +1,24 @@
+import {Context} from "server/trpc/context";
 import {ZodType, ZodTypeAny} from "zod";
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  password: string;
+}
+
+export interface Token {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  password: string;
+  jwt: string;
+}
 
 export interface Product {
   name: string;
@@ -39,4 +59,14 @@ export interface UseInputParamsHook {
   statusForm: number;
   setInputForm: SetInputForm;
   validation: ZodTypeAny;
+}
+
+export type QueryParams = {
+  ctx: Context;
+}
+
+export type QueryErrorResponse = {
+  error: boolean;
+  message: string;
+  data: any;
 }

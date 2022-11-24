@@ -1,11 +1,28 @@
 import Head from "next/head";
 import { type NextPage } from "next";
+import { trpc } from "utils/trpc";
+
 import {PageLayout} from "components/Pages/PageLayout";
 import {Product} from "components/Cards/Product";
-// import { trpc } from "utils/trpc";
 
 const Home: NextPage = () => {
-  // const hello = trpc.example.hello.useQuery({ text: "from tRPC! :D" });
+  const user = trpc.userAuth.saveUser.useQuery({ 
+    name: 'Yair Lázaro',
+    email: 'yairlazaro@outlook.com',
+    password: '12345',
+  });
+  console.log( 'Usuario: ', user);
+  // const tokenState = trpc.userAuth.verifyAuth.useQuery({
+  //   id: user.data?.id || '',
+  //   name: user.data?.name || '',
+  //   email: user.data?.email || '',
+  //   password: user.data?.password || '',
+  //   createdAt: user.data?.createdAt || new Date(),
+  //   updatedAt: user.data?.updatedAt || new Date(),
+  //   jwt: user.data?.jwt || '',
+  // });
+  // console.log('Token status: ', tokenState);
+
   return (
     <PageLayout>
       <Head>
