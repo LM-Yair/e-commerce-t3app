@@ -6,21 +6,19 @@ import {PageLayout} from "components/Pages/PageLayout";
 import {Product} from "components/Cards/Product";
 
 const Home: NextPage = () => {
-  const user = trpc.userAuth.saveUser.useQuery({ 
-    name: 'Yair Lázaro',
-    email: 'yairlazaro@outlook.com',
-    password: '12345',
-  });
-  console.log( 'Usuario: ', user);
-  // const tokenState = trpc.userAuth.verifyAuth.useQuery({
-  //   id: user.data?.id || '',
-  //   name: user.data?.name || '',
-  //   email: user.data?.email || '',
-  //   password: user.data?.password || '',
-  //   createdAt: user.data?.createdAt || new Date(),
-  //   updatedAt: user.data?.updatedAt || new Date(),
-  //   jwt: user.data?.jwt || '',
+  // const user = trpc.userAuth.saveUser.useQuery({ 
+  //   name: 'Yair Lázaro',
+  //   email: 'yairlazaro@outlook.com',
+  //   password: '12345',
   // });
+  // console.log( 'Ususario guardado: ', user);
+  // const id = "d9cfe65f-1c1e-4ab7-a531-a0606e91b779";
+  // const token = trpc.userAuth.generateToken.useQuery({id});
+  // console.log('Token creado: ', token);
+  // const token = {
+  //   jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ5Y2ZlNjVmLTFjMWUtNGFiNy1hNTMxLWEwNjA2ZTkxYjc3OSIsImlhdCI6MTY2OTMzODAxMSwiZXhwIjoxNjY5NDI0NDExfQ.8uCmld0G0LxbnQ0yG_e94uaS_MdFdoBdeRV47fV_zeo"
+  // }
+  // const tokenState = trpc.userAuth.verifyAuth.useQuery(token);
   // console.log('Token status: ', tokenState);
 
   return (

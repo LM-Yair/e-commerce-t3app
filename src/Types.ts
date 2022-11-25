@@ -10,15 +10,7 @@ export interface User {
   password: string;
 }
 
-export interface Token {
-  id: string;
-  name: string;
-  email: string;
-  createdAt: Date;
-  updatedAt: Date;
-  password: string;
-  jwt: string;
-}
+export type Token = string;
 
 export interface Product {
   name: string;
