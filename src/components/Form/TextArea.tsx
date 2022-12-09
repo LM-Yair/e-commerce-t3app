@@ -1,37 +1,51 @@
-import {useInputText} from "hooks/forms/useInputText";
-import {InputForm} from "Types";
-import {Alert} from "./Alert";
-import {Label} from "./Label";
+import { BLUR } from "CONSTANTS/FORM";
+import { FormContext } from "context/form/FormContext";
+import { useOnBlur } from "hooks/forms/useOnBlur";
+import { BaseSyntheticEvent, useContext } from "react";
+import { Alert } from "./Alert";
+import { Label } from "./Label";
+
+export interface InputTextAreaProps {
+  name: string;
+  alert: string;
+  label?: string;
+  placeholder?: string;
+  className?: string;
+}
 
 export const TextArea = ({
-  label = '', 
-  name = '', 
-  value = '', 
-  statusForm,
-  placeholder = '',
-  setInputForm,
-  validation,
+  name,
   alert,
-}: InputForm) => {
-  const {change, onBlur} = useInputText({ 
-    name, 
-    value, 
-    setInputForm, 
-    validation, 
-    statusForm 
+  label,
+  placeholder,
+  className,
+}: InputTextAreaProps) => {
+  const { validationShape, status, setInputForm, form } =
+    useContext(FormContext);
+  const { onBlur, onFocusIn, onFocusOut } = useOnBlur({
+    value: form[name],
+    validation: validationShape[name],
+    statusForm: status,
   });
-  return(
+  const change = (e: BaseSyntheticEvent) => {
+    setInputForm(name, e.target.value);
+    return 0;
+  };
+  return (
     <div>
-      { label.trim() !== '' && <Label htmlFor={name} text={label}/> }
-      <textarea 
-	id={name} 
-	name={name}
-	value={value} 
-	placeholder={placeholder} 
-	onChange={change}
-	className="p-2 h-24 w-full resize-none rounded-lg outline-none"
+      {label && <Label htmlFor={name} text={label} />}
+      <textarea
+        id={name}
+        name={name}
+        value={form[name]}
+        placeholder={placeholder}
+        onChange={change}
+        className={className}
+        onFocus={onFocusIn}
+        onBlur={onFocusOut}
       ></textarea>
-      { onBlur.isTouched && !onBlur.isValid && (<Alert text={alert}/>) }
+      {onBlur.touch === BLUR.IS_TOUCHED &&
+        onBlur.isValid === BLUR.IS_INVALID && <Alert text={alert} />}
     </div>
   );
-}
+};
