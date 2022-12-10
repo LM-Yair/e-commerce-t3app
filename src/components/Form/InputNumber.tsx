@@ -1,6 +1,6 @@
-import { BLUR } from "CONSTANTS/FORM";
+import { BLUR, INPUT_STATE } from "CONSTANTS/FORM";
 import { FormContext } from "context/form/FormContext";
-import { useOnBlur } from "hooks/forms/useOnBlur";
+import { useInputValidation } from "hooks/forms/useInputValidation";
 import { BaseSyntheticEvent, useContext } from "react";
 import { Alert } from "./Alert";
 import { Label } from "./Label";
@@ -20,13 +20,12 @@ export const InputNumber = ({
   placeholder,
   className = "",
 }: InputNumberProps) => {
-  const { validationShape, status, setInputForm, form } =
-    useContext(FormContext);
-  const { onBlur, onFocusIn, onFocusOut } = useOnBlur({
-    value: form[name],
-    validation: validationShape[name],
-    statusForm: status,
+  const { setInputForm, form } = useContext(FormContext);
+
+  const { onFocusIn, onFocusOut, onBlur, isValid } = useInputValidation({
+    inputName: name,
   });
+
   const change = (e: BaseSyntheticEvent) => {
     const input = e.target.value;
     if (input === "") return setInputForm(name, 0);
@@ -50,7 +49,7 @@ export const InputNumber = ({
         onBlur={onFocusOut}
       />
       {onBlur.touch === BLUR.IS_TOUCHED &&
-        onBlur.isValid === BLUR.IS_INVALID && <Alert text={alert} />}
+        isValid === INPUT_STATE.IS_INVALID && <Alert text={alert} />}
     </div>
   );
 };
