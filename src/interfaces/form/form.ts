@@ -11,6 +11,7 @@ export interface FormContextType {
   status: number;
   onSubmitPrevented: (e: BaseSyntheticEvent) => void;
   setInputForm: (name: string, value: string | number) => void;
+  resetForm: () => void;
 }
 
 export interface FormProviderProps {
@@ -25,7 +26,7 @@ export interface FormProviderProps {
     validationShape: {
       [key: string]: ZodType;
     };
-    submitPrevented: Function;
+    submitPrevented: (resetForm: Function) => any;
   };
   children: JSX.Element| JSX.Element[];
 }

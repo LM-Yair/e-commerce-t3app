@@ -36,6 +36,14 @@ export const FormProvider = ({
     return;
   };
 
+  const resetForm = () => {
+    setProvider({
+      ...provider,
+      form: formInit.stateToReset,
+      status: FORM_STATUS.INITIAL,
+    });
+  };
+
   const onSubmitPrevented = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     const validationShape = z.object(formInit.validationShape);
@@ -46,12 +54,7 @@ export const FormProvider = ({
       return 1;
     }
     console.log("Formulario - IS_VALID", provider.form);
-    formInit.submitPrevented();
-    setProvider({
-      ...provider,
-      form: formInit.stateToReset,
-      status: FORM_STATUS.INITIAL,
-    });
+    formInit.submitPrevented(resetForm);
   };
   return (
     <FormContext.Provider
@@ -60,6 +63,7 @@ export const FormProvider = ({
         validationShape: formInit.validationShape,
         onSubmitPrevented,
         setInputForm,
+        resetForm,
       }}
     >
       <form onSubmit={onSubmitPrevented} className={className}>
