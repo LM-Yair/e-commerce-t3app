@@ -1,16 +1,16 @@
-import { QueryParams } from "Types";
+import { Params } from "interfaces/query/query";
 import { encrypt } from "utils/server/encryption";
 
-export type SaveUserService = QueryParams & {
-  input:{
+export type SaveUserService = Params & {
+  input: {
     name: string;
     email: string;
     password: string;
   };
-}
+};
 
 export const saveUserService = async ({ ctx, input }: SaveUserService) => {
-  try{
+  try {
     const passwordHashed = await encrypt(input.password, 10);
     const savedUser = await ctx.prisma.user.create({
       data: {
@@ -19,8 +19,8 @@ export const saveUserService = async ({ ctx, input }: SaveUserService) => {
         password: passwordHashed,
       },
     });
-  return savedUser;
-  }catch(e){
+    return savedUser;
+  } catch (e) {
     throw e;
   }
-}
+};
