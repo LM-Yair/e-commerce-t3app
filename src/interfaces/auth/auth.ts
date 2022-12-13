@@ -1,4 +1,8 @@
 
 export interface AuthContextType {
-  statusAuth: number;
+  statusAuth: {
+    auth_status: number;
+    jwt_status: number;
+  };
+  redirectToLoginPage: () => void;
 }
