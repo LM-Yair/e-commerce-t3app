@@ -5,6 +5,7 @@ import { AUTH_STATUS, JWT_STATUS } from "CONSTANTS/AUTH";
 import { jwt_get } from "utils/client/jsonwebtoken";
 import { trpc } from "utils/trpc";
 import { AuthContext } from "./AuthContext";
+import { Notice } from "components/Info/Notice";
 
 export interface AuthProviderProps {
   children: JSX.Element | JSX.Element[];
@@ -64,21 +65,30 @@ export const AuthProvider = ({
       })
       .catch(console.warn);
   }, []);
-
+  const valueCtx = {
+    statusAuth,
+    redirectToLoginPage,
+  };
+  // si hideContentDurignValidating esta en true
+  // no mostrará el contenido mientras se hace la validación
+  if (
+    hideContentDurignValidating &&
+    statusAuth.jwt_status === JWT_STATUS.INITIAL
+  ) {
+    return (
+      <div className="background_desing flex h-screen items-center justify-center">
+        <Notice text="Validando autenticación" />
+      </div>
+    );
+  }
+  if (redirect && statusAuth.auth_status !== AUTH_STATUS.AUTHENTICATED) {
+    return (
+      <div className="background_desing flex h-screen items-center justify-center">
+        <Notice text="Redireccionando" />
+      </div>
+    );
+  }
   return (
-    <AuthContext.Provider
-      value={{
-        statusAuth,
-        redirectToLoginPage,
-      }}
-    >
-      {/* si la redirección esta activa, mostrará elcontenido hasta que 
-      el suario esté autenticado */}
-      {hideContentDurignValidating &&
-        statusAuth.auth_status === AUTH_STATUS.AUTHENTICATED &&
-        children}
-      {/* si la redirección esta desactivada, mostrará el contenido de todas formas */}
-      {!hideContentDurignValidating && children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={valueCtx}>{children}</AuthContext.Provider>
   );
 };
