@@ -4,6 +4,7 @@ import { trpc } from "utils/trpc";
 
 import { PageLayout } from "components/Pages/PageLayout";
 import { Product } from "components/Cards/Product";
+import { AuthProvider } from "context/auth/AuthProvider";
 
 const Home: NextPage = () => {
   // const user = trpc.userAuth.saveUser.useQuery({
@@ -22,23 +23,25 @@ const Home: NextPage = () => {
   // console.log('Token status: ', tokenState);
 
   return (
-    <PageLayout>
-      <Head>
-        <title>Inicio</title>
-        <meta name="description" content="Página principal" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <section className="mx-auto flex max-w-4xl flex-wrap justify-evenly gap-2 p-2">
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-        </section>
-      </main>
-    </PageLayout>
+    <AuthProvider>
+      <PageLayout>
+        <Head>
+          <title>Inicio</title>
+          <meta name="description" content="Página principal" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <main>
+          <section className="mx-auto flex max-w-4xl flex-wrap justify-evenly gap-2 p-2">
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+          </section>
+        </main>
+      </PageLayout>
+    </AuthProvider>
   );
 };
 
