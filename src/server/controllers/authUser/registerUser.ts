@@ -1,16 +1,13 @@
 import { Params } from "interfaces/query/query";
+import { UserRegisterType } from "interfaces/user/user";
 import { emailAlreadyExistsService } from "server/services/userAuth/emailAlreadyExists";
 import { saveUserService } from "server/services/userAuth/saveUser";
 
 export type SaveUserController = Params & {
-  input: {
-    name: string;
-    email: string;
-    password: string;
-  };
+  input: UserRegisterType;
 };
 
-export const saveUserController = async ({
+export const registerUserController = async ({
   ctx,
   input,
 }: SaveUserController) => {

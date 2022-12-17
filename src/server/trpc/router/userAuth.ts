@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
-import { saveUserController } from "server/controllers/authUser/saveUser";
+import { registerUserController } from "server/controllers/authUser/registerUser";
 import { verifyAuthStateController } from "server/controllers/authUser/verifyAuthState";
 import { generateTokenController } from "server/controllers/globalControllers/generateToken";
 
 export const userAuth = router({
-  saveUser: publicProcedure
+  registerUser: publicProcedure
     .input(
       z.object({
         name: z.string(),
@@ -14,7 +14,7 @@ export const userAuth = router({
         password: z.string(),
       })
     )
-    .query(saveUserController),
+    .query(registerUserController),
   generateToken: publicProcedure
     .input(
       z.object({
