@@ -49,12 +49,12 @@ export const FormProvider = ({
     const validationShape = z.object(formInit.validationShape);
     const { success } = validationShape.safeParse(provider.form);
     if (!success) {
-      console.log("Formulario - IS_INVALID", provider.form);
+      // console.log("Formulario - IS_INVALID", provider.form);
       setProvider({ ...provider, status: FORM_STATUS.IS_INVALID });
       return 1;
     }
-    console.log("Formulario - IS_VALID", provider.form);
-    formInit.submitPrevented(resetForm);
+    // console.log("Formulario - IS_VALID", provider.form);
+    formInit.submitPrevented(resetForm, provider.form);
   };
   return (
     <FormContext.Provider

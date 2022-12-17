@@ -1,10 +1,12 @@
-import {BaseSyntheticEvent} from "react";
-import {ZodType} from "zod";
+import { BaseSyntheticEvent } from "react";
+import { ZodType } from "zod";
+
+export interface Form {
+  [key: string]: string | number;
+}
 
 export interface FormContextType {
-  form: {
-    [key: string]: string | number;
-  };
+  form: Form;
   validationShape: {
     [key: string]: ZodType;
   };
@@ -26,13 +28,13 @@ export interface FormProviderProps {
     validationShape: {
       [key: string]: ZodType;
     };
-    submitPrevented: (resetForm: Function) => any;
+    submitPrevented: (resetForm: Function, values: Form) => any;
   };
-  children: JSX.Element| JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 }
 
 export interface FormInputText {
-  label?: string; 
+  label?: string;
   name: string;
   placeholder?: string;
   alert: string;
