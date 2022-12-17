@@ -1,9 +1,13 @@
+import { useRouter } from "next/router";
+import { trpc } from "utils/trpc";
+import { z } from "zod";
+
 import { InputPassword } from "components/Form/InputPassword";
 import { InputText } from "components/Form/InputText";
 import { Submit } from "components/Form/Submit";
 import { LinkText } from "components/Links/LinkText";
 import { FormProvider } from "context/form/FormProvider";
-import { z } from "zod";
+import { jwt_save } from "utils/client/jsonwebtoken";
 
 const loginInit = {
   email: "",
@@ -16,6 +20,8 @@ const validation = {
 };
 
 const Login = () => {
+  const router = useRouter();
+  const ctx = trpc.useContext();
   return (
     <main className="background_desing h-screen w-screen">
       <section className="flex h-full items-center justify-center">
@@ -24,8 +30,21 @@ const Login = () => {
             initialState: loginInit,
             stateToReset: loginInit,
             validationShape: validation,
-            submitPrevented(resetForm) {
-              resetForm();
+            submitPrevented: async (resetForm, values) => {
+              try {
+                const userLoged = await ctx.userAuth.loginUser.fetch({
+                  email: typeof values.email === "string" ? values.email : "",
+                  password:
+                    typeof values.password === "string" ? values.password : "",
+                });
+                if (userLoged.error) throw userLoged;
+                jwt_save("jwt", userLoged.jwt || "");
+                resetForm();
+                router.replace("/");
+                return;
+              } catch (e) {
+                console.warn(e);
+              }
             },
           }}
           className="m-2 w-full max-w-[28rem] p-4"
