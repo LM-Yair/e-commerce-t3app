@@ -1,4 +1,4 @@
-import { compare, hash } from "bcrypt";
+import { compareSync, hash } from "bcrypt";
 import { sign, verify } from "jsonwebtoken";
 import { Token } from "Types";
 
@@ -17,14 +17,10 @@ export const encrypt = async (password: string,saltOrRounds: string | number) =>
   }
 }
 
-export const decrypt = async (password: string, passwordHashed: string) => {
-  try{
-    const passwordDecrypted = await compare(password, passwordHashed);
-    return passwordDecrypted;
-  }catch(e){
-    throw e
-  }
-}
+export const decrypt = (password: string, passwordHashed: string): boolean => {
+  const passwordDecrypted = compareSync(password, passwordHashed);
+  return passwordDecrypted;
+};
 
 export const createToken = ({ id, secretKey, expiresIn }: CreateToken) => {
   const jwt = sign({id}, secretKey,{
