@@ -1,5 +1,7 @@
+import {SECRET_KEY, TOKEN_EXPIRES_IN} from "CONSTANTS/GLOBALS";
 import { Params } from "interfaces/query/query";
 import { UserRegisterType } from "interfaces/user/user";
+import {createTokenService} from "server/services/globalServices/createToken";
 import { emailAlreadyExistsService } from "server/services/userAuth/emailAlreadyExists";
 import { saveUserService } from "server/services/userAuth/saveUser";
 
@@ -19,9 +21,15 @@ export const registerUserController = async ({
       };
     }
     const savedUser = await saveUserService({ ctx, input });
+    const jwt = createTokenService({
+      id: savedUser.id,
+      expiresIn: TOKEN_EXPIRES_IN,
+      SECRET_KEY,
+    });
     return {
       id: savedUser.id,
       name: savedUser.name,
+      jwt,
     };
   } catch (e) {
     return {
