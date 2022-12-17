@@ -1,11 +1,8 @@
 import { Params } from "interfaces/query/query";
+import { User } from "interfaces/user/user";
 
 export type EmailAlreadyExistsService = Params & {
-  input: {
-    name: string;
-    email: string;
-    password: string;
-  };
+  input: Omit<User, "id" | "createdAt" | "updatedAt" | "name" | "password">;
 };
 
 export const emailAlreadyExistsService = async ({

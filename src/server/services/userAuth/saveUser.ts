@@ -1,12 +1,9 @@
 import { Params } from "interfaces/query/query";
+import { UserRegisterType } from "interfaces/user/user";
 import { encrypt } from "utils/server/encryption";
 
 export type SaveUserService = Params & {
-  input: {
-    name: string;
-    email: string;
-    password: string;
-  };
+  input: UserRegisterType;
 };
 
 export const saveUserService = async ({ ctx, input }: SaveUserService) => {
