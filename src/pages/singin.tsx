@@ -41,10 +41,7 @@ const Singin = () => {
                     typeof values.password === "string" ? values.password : "",
                 });
                 if (userRegistered.error) throw userRegistered;
-                const jwt = await ctx.userAuth.generateToken.fetch({
-                  id: userRegistered.id || "",
-                });
-                jwt_save("jwt", jwt.jwt || "");
+                jwt_save("jwt", userRegistered.jwt || "");
                 resetForm();
                 router.replace("/");
                 return;
