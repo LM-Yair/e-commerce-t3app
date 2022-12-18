@@ -14,6 +14,7 @@ export interface AuthProviderProps {
 }
 
 const auth_initial = {
+  jwt: "",
   auth_status: AUTH_STATUS.INITIAL,
   jwt_status: JWT_STATUS.INITIAL,
 };
@@ -51,6 +52,7 @@ export const AuthProvider = ({
         if (data.error || !data.tokenIsValid) {
           autoRedirect();
           setStatusAuth({
+            jwt,
             auth_status: AUTH_STATUS.AUTHENTICATED,
             jwt_status: JWT_STATUS.JWT_HAS_EXPIRED,
           });
@@ -58,6 +60,7 @@ export const AuthProvider = ({
         }
         if (data.tokenIsValid) {
           setStatusAuth({
+            jwt,
             auth_status: AUTH_STATUS.AUTHENTICATED,
             jwt_status: JWT_STATUS.JWT_HAS_NOT_EXPIRED,
           });
