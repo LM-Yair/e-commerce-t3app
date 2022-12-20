@@ -53,7 +53,7 @@ export const AuthProvider = ({
           autoRedirect();
           setStatusAuth({
             jwt,
-            auth_status: AUTH_STATUS.AUTHENTICATED,
+            auth_status: AUTH_STATUS.FAILED,
             jwt_status: JWT_STATUS.JWT_HAS_EXPIRED,
           });
           return;
