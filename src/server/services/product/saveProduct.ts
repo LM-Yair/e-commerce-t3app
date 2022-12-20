@@ -1,5 +1,6 @@
 import { ProductCreate } from "interfaces/product/product";
 import { Params } from "interfaces/query/query";
+import { slugify } from "utils/server/slugify";
 
 type SaveProductServiceParams = Params & {
   input: ProductCreate & {
@@ -12,7 +13,7 @@ export const saveProductService = async ({
   input,
 }: SaveProductServiceParams) => {
   try {
-    const productSlug = input.name.toLowerCase().split(" ").join("-");
+    const productSlug = slugify(input.name, "-");
     const productSaved = await ctx.prisma.product.create({
       data: {
         name: input.name,
