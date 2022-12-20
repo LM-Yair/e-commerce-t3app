@@ -13,7 +13,7 @@ export const saveProductService = async ({
 }: SaveProductServiceParams) => {
   try {
     const productSlug = input.name.toLowerCase().split(" ").join("-");
-    const productSaved = ctx.prisma.product.create({
+    const productSaved = await ctx.prisma.product.create({
       data: {
         name: input.name,
         slug: productSlug,

@@ -28,7 +28,7 @@ export const createProductControlller = async ({
     }
     // verificar si el usuario existe con el id que retorna el jwt
     // al decodificarlo
-    const userExists = userIdAlreadyExistsService({
+    const userExists = await userIdAlreadyExistsService({
       ctx,
       id: `${tokenIsValid.id}`,
     });
@@ -37,7 +37,7 @@ export const createProductControlller = async ({
         message: "No existe un usuario con este id",
       };
     }
-    const productSaved = saveProductService({
+    const productSaved = await saveProductService({
       ctx,
       input: {
         userId: tokenIsValid.id,
@@ -47,7 +47,10 @@ export const createProductControlller = async ({
         description: input.description,
       },
     });
-    return productSaved;
+    return {
+      error: false,
+      productSaved,
+    }; 
   } catch (e) {
     return {
       error: true,
