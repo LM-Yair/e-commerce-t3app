@@ -1,18 +1,27 @@
-import {CartIcon} from "components/Icons/Cart";
+import { CartIcon } from "components/Icons/Cart";
+import { LinkText } from "components/Links/LinkText";
+import { Product } from "interfaces/product/product";
 
-export const Product = () => {
-  return(
-    <article className="p-2 w-56 text-neutral-800 bg-neutral-100 inline-block shadow-md shadow-neutral-300 rounded-lg">
-      <div className="h-48 bg-neutral-300 rounded-lg"></div>
+type ProductCardProps = Omit<
+  Product,
+  "id" | "description" | "inventary" | "createdAt" | "updatedAt"
+>;
+
+export const Productcard = ({ name, price, slug }: ProductCardProps) => {
+  return (
+    <article className="inline-block w-56 rounded-lg bg-neutral-100 p-2 text-neutral-800 shadow-md shadow-neutral-300">
+      <div className="h-48 rounded-lg bg-neutral-300"></div>
       <div className="flex flex-col">
-	<h4 className="text-md font-bold">Zapatos</h4>
-	<ul className="pl-2">
-	  <li>MXN 750</li>
-	</ul>
+        <p className="py-1 text-lg font-bold">
+          <LinkText type="NextLink" text={name} href={`/producto/${slug}`} />
+        </p>
+        <ul className="pl-2">
+          <li>MXN {price}</li>
+        </ul>
       </div>
-      <div className="pt-2 flex flex-wrap gap-2">
-	<CartIcon size={24} action={() => console.log('cart')} />
+      <div className="flex flex-wrap gap-2 pt-2">
+        <CartIcon size={24} action={() => console.log("cart")} />
       </div>
     </article>
   );
-}
+};
