@@ -3,6 +3,7 @@ import { router, publicProcedure } from "../trpc";
 
 import { createProductControlller } from "server/controllers/product/create";
 import { getProductController } from "server/controllers/product/get";
+import { getOneProdutcController } from "server/controllers/product/getOne";
 
 export const product = router({
   create: publicProcedure
@@ -17,4 +18,7 @@ export const product = router({
     )
     .query(createProductControlller),
   get: publicProcedure.query(getProductController),
+  getOne: publicProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(getOneProdutcController),
 });
