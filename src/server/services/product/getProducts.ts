@@ -2,7 +2,7 @@ import { Params } from "interfaces/query/query";
 
 type GetProductServiceParams = Params & {};
 
-export const getProductService = async ({ ctx }: GetProductServiceParams) => {
+export const getProductsService = async ({ ctx }: GetProductServiceParams) => {
   try {
     const products = await ctx.prisma.product.findMany({
       orderBy: {
