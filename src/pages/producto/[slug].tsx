@@ -81,7 +81,7 @@ const Producto: NextPage<{ slug: string }> = ({ slug }) => {
               <LinkText
                 type="NextLink"
                 text={`Propietario: ${product.user.name}`}
-                href={`/profile/${product.user.id}`}
+                href={`/perfil/${product.user.id}`}
               />
             </div>
           </section>
