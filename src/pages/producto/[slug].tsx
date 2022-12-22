@@ -25,7 +25,7 @@ const Producto: NextPage<{ slug: string }> = ({ slug }) => {
   const [product, setProduct] = useState<ProductToView | undefined>(undefined);
   const ctx = trpc.useContext();
   useEffect(() => {
-    ctx.product.getOne
+    ctx.product.getToProductPage
       .fetch({ slug })
       .then((res) => {
         if (res.product) {

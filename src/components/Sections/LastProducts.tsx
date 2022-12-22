@@ -20,7 +20,7 @@ export const LastProducts = () => {
   const ctx = trpc.useContext();
   useEffect(() => {
     setProductsState(PRODUCTS.LOADING);
-    ctx.product.get
+    ctx.product.productListToHomePage
       .fetch()
       .then((res) => {
         setProducts(res.products);
@@ -43,9 +43,7 @@ export const LastProducts = () => {
           <Notice text="Obteniendo Productos..." />
         </div>
       )}
-      {productsState === PRODUCTS.DONE &&
-        products &&
-        products.length < 1 && (
+      {productsState === PRODUCTS.DONE && products && products.length < 1 && (
         <div className="flex h-64 w-full items-center justify-center">
           <Notice text="Parece que aún no hay productos creados." />
         </div>

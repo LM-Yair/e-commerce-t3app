@@ -2,8 +2,8 @@ import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
 import { createProductControlller } from "server/controllers/product/create";
-import { getProductController } from "server/controllers/product/get";
-import { getOneProdutcController } from "server/controllers/product/getOne";
+import { getProductListToHomePageController } from "server/controllers/product/get";
+import { getToProductPageController } from "server/controllers/product/getProductToPage";
 
 export const product = router({
   create: publicProcedure
@@ -17,8 +17,10 @@ export const product = router({
       })
     )
     .query(createProductControlller),
-  get: publicProcedure.query(getProductController),
-  getOne: publicProcedure
+  productListToHomePage: publicProcedure.query(
+    getProductListToHomePageController
+  ),
+  getToProductPage: publicProcedure
     .input(z.object({ slug: z.string() }))
-    .query(getOneProdutcController),
+    .query(getToProductPageController),
 });

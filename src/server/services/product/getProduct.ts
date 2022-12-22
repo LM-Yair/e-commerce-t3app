@@ -14,7 +14,7 @@ type GetOneProductServiceParams = Params & {
   >;
 };
 
-export const getOneProductService = async ({
+export const getToProductPageService = async ({
   ctx,
   input,
 }: GetOneProductServiceParams) => {

@@ -1,6 +1,6 @@
 import { Product } from "interfaces/product/product";
 import { Params } from "interfaces/query/query";
-import { getOneProductService } from "server/services/product/getOneProduct";
+import { getToProductPageService } from "server/services/product/getProduct";
 
 type GetOneProductControllerParams = Params & {
   input: Omit<
@@ -15,12 +15,12 @@ type GetOneProductControllerParams = Params & {
   >;
 };
 
-export const getOneProdutcController = async ({
+export const getToProductPageController = async ({
   ctx,
   input,
 }: GetOneProductControllerParams) => {
   try {
-    const product = await getOneProductService({ ctx, input });
+    const product = await getToProductPageService({ ctx, input });
     return {
       error: false,
       product,

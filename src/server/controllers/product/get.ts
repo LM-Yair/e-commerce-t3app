@@ -1,13 +1,13 @@
 import { Params } from "interfaces/query/query";
-import { getProductsService } from "server/services/product/getProducts";
+import { getProductsToHomePageService } from "server/services/product/getProducts";
 
 type GetProductControllerParams = Params;
 
-export const getProductController = async ({
+export const getProductListToHomePageController = async ({
   ctx,
 }: GetProductControllerParams) => {
   try {
-    const products = await getProductsService({ ctx });
+    const products = await getProductsToHomePageService({ ctx });
     return {
       error: false,
       products,
