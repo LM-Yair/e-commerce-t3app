@@ -1,7 +1,7 @@
+import { Product } from "interfaces/product/product";
 import { Params } from "interfaces/query/query";
-import { Product } from "Types";
 
-type GetOneProductServiceParams = Params & {
+type GetToProductPageService = Params & {
   input: Omit<
     Product,
     | "id"
@@ -17,7 +17,7 @@ type GetOneProductServiceParams = Params & {
 export const getToProductPageService = async ({
   ctx,
   input,
-}: GetOneProductServiceParams) => {
+}: GetToProductPageService) => {
   try {
     const product = await ctx.prisma.product.findMany({
       where: {
