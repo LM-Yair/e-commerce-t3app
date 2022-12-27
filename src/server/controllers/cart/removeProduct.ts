@@ -1,9 +1,11 @@
+import { SECRET_KEY } from "CONSTANTS/GLOBALS";
 import { Params } from "interfaces/query/query";
 import { removeProuctFromCartService } from "server/services/cart/removeProduct";
+import { verifyTokenStateService } from "server/services/globalServices/verifyTokenState";
 
 type RemoveProuctFromCart = Params & {
   input: {
-    userId: string;
+    jwt: string;
     productId: string;
   };
 };
@@ -13,7 +15,17 @@ export const removeProductFromCartController = async ({
   input,
 }: RemoveProuctFromCart) => {
   try {
-    const cart = await removeProuctFromCartService({ ctx, input });
+    const tokenIsValid = verifyTokenStateService({
+      token: input.jwt,
+      SECRET_KEY,
+    });
+    const cart = await removeProuctFromCartService({
+      ctx,
+      input: {
+        userId: tokenIsValid.id,
+        productId: input.productId,
+      },
+    });
     return {
       error: false,
       cart,

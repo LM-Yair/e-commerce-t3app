@@ -10,14 +10,14 @@ export const cart = router({
   getUserCart: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        jwt: z.string(),
       })
     )
     .query(getUserCartController),
   addProduct: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        jwt: z.string(),
         productId: z.string(),
       })
     )
@@ -25,7 +25,7 @@ export const cart = router({
   removeProduct: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        jwt: z.string(),
         productId: z.string(),
       })
     )
@@ -33,7 +33,7 @@ export const cart = router({
   removeAllProducts: publicProcedure
     .input(
       z.object({
-        userId: z.string(),
+        jwt: z.string(),
       })
     )
     .query(RemoveAllProuctsFromCartController),
