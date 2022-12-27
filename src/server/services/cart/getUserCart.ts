@@ -18,6 +18,7 @@ export const getUserCartService = async ({ ctx, input }: GetCart) => {
             id: true,
             name: true,
             price: true,
+            inventary: true,
             slug: true,
           },
         },
