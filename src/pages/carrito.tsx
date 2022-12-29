@@ -1,8 +1,9 @@
 import Head from "next/head";
-import { type NextPage } from "next";
+import type { NextPage } from "next";
+
 import { PageLayout } from "components/Pages/PageLayout";
-import { ProductCart } from "components/Cards/ProductCart";
 import { AuthProvider } from "context/auth/AuthProvider";
+import { ProductList } from "components/Pages/carrito/ProductList";
 
 const Carrito: NextPage = () => {
   return (
@@ -17,12 +18,7 @@ const Carrito: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main>
-          <section className="mx-auto flex max-w-3xl flex-col gap-2 p-2">
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-          </section>
+          <ProductList />
         </main>
       </PageLayout>
     </AuthProvider>
