@@ -14,6 +14,9 @@ export const saveUserService = async ({ ctx, input }: SaveUserService) => {
         name: input.name,
         email: input.email,
         password: passwordHashed,
+        cart: {
+          create: {},
+        },
       },
     });
     return savedUser;
