@@ -3,16 +3,9 @@ import { Params } from "interfaces/query/query";
 import { getToProductPageService } from "server/services/product/getProduct";
 
 type GetOneProductControllerParams = Params & {
-  input: Omit<
-    Product,
-    | "id"
-    | "name"
-    | "price"
-    | "inventary"
-    | "description"
-    | "createdAt"
-    | "updatedAt"
-  >;
+  input: {
+    slug: Product["slug"];
+  },
 };
 
 export const getToProductPageController = async ({

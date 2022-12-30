@@ -2,17 +2,11 @@ import { Product } from "interfaces/product/product";
 import { Params } from "interfaces/query/query";
 
 type GetToProductPageService = Params & {
-  input: Omit<
-    Product,
-    | "id"
-    | "name"
-    | "price"
-    | "inventary"
-    | "description"
-    | "createdAt"
-    | "updatedAt"
-  >;
+  input: {
+    slug: Product["slug"];
+  },
 };
+
 
 export const getToProductPageService = async ({
   ctx,
@@ -24,6 +18,7 @@ export const getToProductPageService = async ({
         slug: input.slug,
       },
       select: {
+        id: true,
         name: true,
         price: true,
         inventary: true,

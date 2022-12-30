@@ -9,7 +9,7 @@ import { LinkText } from "components/Links/LinkText";
 import { AuthProvider } from "context/auth/AuthProvider";
 import { PageLayout } from "components/Pages/PageLayout";
 
-type ProductToView = Omit<Product, "updatedAt" | "id"> & {
+type ProductToView = Omit<Product, "updatedAt"> & {
   user: Omit<User, "email" | "updatedAt" | "createdAt" | "password">;
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -29,9 +29,18 @@ const Producto: NextPage<{ slug: string }> = ({ slug }) => {
       .fetch({ slug })
       .then((res) => {
         if (res.product) {
-          const { name, price, inventary, description, slug, createdAt, user } =
-            res.product;
+          const {
+            id,
+            name,
+            price,
+            inventary,
+            description,
+            slug,
+            createdAt,
+            user,
+          } = res.product;
           setProduct({
+            id,
             name,
             price,
             inventary,
