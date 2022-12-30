@@ -4,7 +4,7 @@ import { Params } from "interfaces/query/query";
 type ProductIsAdded = Params & {
   input: {
     userId: string;
-    slug: Product["slug"];
+    productId: Product["id"];
   };
 };
 
@@ -20,7 +20,7 @@ export const productIsAddedService = async ({
       select: {
         products: {
           where: {
-            slug: input.slug,
+            id: input.productId,
           },
           select: {
             slug: true,

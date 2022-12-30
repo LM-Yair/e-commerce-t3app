@@ -7,7 +7,7 @@ import { verifyTokenStateService } from "server/services/globalServices/verifyTo
 type ProductIsAdded = Params & {
   input: {
     jwt: string;
-    slug: Product["slug"];
+    productId: Product["id"];
   };
 };
 
@@ -29,7 +29,7 @@ export const productIsAddedController = async ({
       ctx,
       input: {
         userId: tokenIsValid.id,
-        slug: input.slug,
+        productId: input.productId,
       },
     });
     return {

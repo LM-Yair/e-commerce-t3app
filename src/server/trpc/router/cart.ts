@@ -27,7 +27,7 @@ export const cart = router({
     .input(
       z.object({
         jwt: z.string(),
-        slug: z.string(),
+        productId: z.string(),
       })
     )
     .query(productIsAddedController),
