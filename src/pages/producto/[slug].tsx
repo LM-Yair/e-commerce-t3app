@@ -8,6 +8,8 @@ import { Product } from "interfaces/product/product";
 import { LinkText } from "components/Links/LinkText";
 import { AuthProvider } from "context/auth/AuthProvider";
 import { PageLayout } from "components/Pages/PageLayout";
+import { CartIcon } from "components/Icons/Cart";
+import { Notice } from "components/Info/Notice";
 
 type ProductToView = Omit<Product, "updatedAt"> & {
   user: Omit<User, "email" | "updatedAt" | "createdAt" | "password">;
@@ -67,36 +69,43 @@ const Producto: NextPage<{ slug: string }> = ({ slug }) => {
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        {product ? (
-          <section className="my-4 flex flex-wrap justify-center gap-4 text-lg text-neutral-600">
-            <div className="h-[32rem] w-full max-w-[28rem] bg-neutral-300"></div>
-            <div className="w-full max-w-[32rem]">
-              <h2 className="mb-2 text-2xl font-semibold">{product.name}</h2>
-              <h6 className="mt-2 text-lg font-semibold text-cyan-500">
-                Precio:
-              </h6>
-              <span className="text-3xl">MXN {product.price}</span>
-              <h6 className="mt-2 text-lg font-semibold text-cyan-500">
-                Lo que tienes que saber de este producto:
-              </h6>
-              <p className="whitespace-pre-line pl-2">{product.description}</p>
-              <h6 className="mt-2 text-lg font-semibold text-cyan-500">
-                Inventario:
-              </h6>
-              <div>Quedan: {product.inventary}</div>
-              <div>
-                publicado: {`${new Date(product.createdAt).toLocaleString()}`}
+        <section className="my-4 flex flex-wrap justify-center gap-4 text-lg text-neutral-600">
+          {product ? (
+            <>
+              <div className="h-[32rem] w-full max-w-[28rem] bg-neutral-300"></div>
+              <div className="w-full max-w-[32rem]">
+                <h2 className="mb-2 text-2xl font-semibold">{product.name}</h2>
+                <section className="flex flex-wrap gap-2 py-2">
+                  <CartIcon size={25} productId={product.id} />
+                </section>
+                <h6 className="mt-2 text-lg font-semibold text-cyan-500">
+                  Precio:
+                </h6>
+                <span className="text-3xl">MXN {product.price}</span>
+                <h6 className="mt-2 text-lg font-semibold text-cyan-500">
+                  Lo que tienes que saber de este producto:
+                </h6>
+                <p className="whitespace-pre-line pl-2">
+                  {product.description}
+                </p>
+                <h6 className="mt-2 text-lg font-semibold text-cyan-500">
+                  Inventario:
+                </h6>
+                <div>Quedan: {product.inventary}</div>
+                <div>
+                  publicado: {`${new Date(product.createdAt).toLocaleString()}`}
+                </div>
+                <LinkText
+                  type="NextLink"
+                  text={`Propietario: ${product.user.name}`}
+                  href={`/perfil/${product.user.id}`}
+                />
               </div>
-              <LinkText
-                type="NextLink"
-                text={`Propietario: ${product.user.name}`}
-                href={`/perfil/${product.user.id}`}
-              />
-            </div>
-          </section>
-        ) : (
-          <></>
-        )}
+            </>
+          ) : (
+            <Notice text="Parece que este producto no existe :(" />
+          )}
+        </section>
       </PageLayout>
     </AuthProvider>
   );
